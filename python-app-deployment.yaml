@@ -1,0 +1,38 @@
+#uygulama  
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+       app: mongo-app  
+  template:
+    metadata:
+      labels:
+        app: mongo-app 
+    spec:
+      containers:
+        - name: python-app
+          image: barkinatici/kubernetes  
+          ports:
+            - containerPort: 5000  
+          env:
+            - name: MONGO_URI
+              value: "mongodb://mongodb:27017/mydatabase"  
+---
+#app service uygulama açılıcak port 
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-app-service
+spec:
+  selector:
+    app: mongo-app  #  label ile uygulama podları eşleşecek
+  ports:
+    - name: app-port
+      protocol: TCP
+      port: 5000  # uygulamanızın servisi dışarıdan hangi portu dinleyecek?
+      targetPort: 5000  # uygulamanızın pod'undaki port
+---
