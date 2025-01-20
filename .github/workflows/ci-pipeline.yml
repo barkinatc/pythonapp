@@ -69,11 +69,7 @@ jobs:
         echo "Uygulama başarıyla ayağa kaldırıldı."
         kubectl get pods
 
-    - name: Expose service and get URL
-      run: |
-       SERVICE_URL=$(minikube service python-app-service --url)
-       echo "Python App Service is accessible at ${SERVICE_URL}"
-        
+
 
         
 
