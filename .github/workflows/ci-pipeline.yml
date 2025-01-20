@@ -53,9 +53,9 @@ jobs:
         kubectl apply -f mongodb-deployment.yaml
 
      # 9. Wait for MongoDB pod to be in Running state
-    - name: Wait for MongoDB pod to be Running
-      run: |
-        kubectl wait --for=condition=ready pod -l app=mongodb --timeout=300s
+    #- name: Wait for MongoDB pod to be Running
+    #  run: |
+     #   kubectl wait --for=condition=ready pod -l app=mongodb --timeout=300s
         
     - name: test
       run: |
