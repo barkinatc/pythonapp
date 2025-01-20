@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
   build:
@@ -17,35 +14,31 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    # 2. Set up Python
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
-
-    # 3. Install dependencies
-    - name: Install dependencies
+    # 2. Install Minikube
+    - name: Install Minikube
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+        sudo chmod +x minikube
+        sudo mv minikube /usr/local/bin
 
-    # 4. Build Docker image (optional, if you want to build Docker image)
-    - name: Build Docker image
+    # 3. Start Minikube
+    - name: Start Minikube
       run: |
-        docker build -t my-python-app .
+        minikube start --driver=docker
 
-   # 5. Set up kubeconfig using secret
-    - name: Set up kubeconfig
+    # 4. Set up kubectl with Minikube's kubeconfig
+    - name: Set up kubectl
       run: |
-        mkdir -p $HOME/.kube  # Kubeconfig dizinini oluştur
-        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config  # Secret'ı kubeconfig dosyasına yaz
+        mkdir -p $HOME/.kube
+        minikube kubectl -- get kubeconfig > $HOME/.kube/config  # Minikube'dan kubeconfig al
         chmod 600 $HOME/.kube/config  # Kubeconfig dosyasına doğru izinleri ver
-    # 6. Deploy MongoDB
+
+    # 5. Deploy MongoDB
     - name: Deploy MongoDB
       run: |
         kubectl apply -f mongodb-deployment.yaml
 
-    # 7. Deploy Python App
+    # 6. Deploy Python App
     - name: Deploy Python App
       run: |
         kubectl apply -f python-app-deployment.yaml
