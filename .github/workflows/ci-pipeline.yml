@@ -28,11 +28,7 @@ jobs:
 
 
     # 5. Deploy MongoDB
-    - name: Deploy MongoDB
+    - name: nodes
       run: |
-        kubectl apply -f mongodb-deployment.yaml
+        kubectl get pods
 
-    # 6. Deploy Python App
-    - name: Deploy Python App
-      run: |
-        kubectl apply -f python-app-deployment.yaml
