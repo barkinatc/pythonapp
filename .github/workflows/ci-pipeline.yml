@@ -34,12 +34,12 @@ jobs:
       run: |
         docker build -t my-python-app .
 
-    # 5. Set up Kubeconfig
+   # 5. Set up kubeconfig using secret
     - name: Set up kubeconfig
       run: |
-        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
-        chmod 600 $HOME/.kube/config  # Make sure the kubeconfig file has the correct permissions
-
+        mkdir -p $HOME/.kube  # Kubeconfig dizinini oluştur
+        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config  # Secret'ı kubeconfig dosyasına yaz
+        chmod 600 $HOME/.kube/config  # Kubeconfig dosyasına doğru izinleri ver
     # 6. Deploy MongoDB
     - name: Deploy MongoDB
       run: |
