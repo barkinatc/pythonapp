@@ -52,19 +52,29 @@ jobs:
       run: |
         kubectl apply -f mongodb-deployment.yaml
 
-     # 9. Wait for MongoDB pod to be in Running state
-    #- name: Wait for MongoDB pod to be Running
-    #  run: |
-     #   kubectl wait --for=condition=ready pod -l app=mongodb --timeout=300s
         
-    - name: test
+    - name: MongoDB Bekleme
       run: |
         echo "MongoDB deployment'i kontrol ediliyor..."
         kubectl rollout status deployment mongodb-deployment --timeout=1000s
         
-    - name: test2
+    - name: Get Pods
       run: |
         echo "MongoDB deployment'i kontrol ediliyor..."
         kubectl get pods
-
-
+        
+    - name: App Deployment
+      run: |
+        
+        echo "MongoDB Pod'lari hazir.App deployment hazirlaniyor"
+        kubectl apply -f python-app-deployment.yaml
+        
+    - name: test
+      run: |
+        echo "Uygulama bekleniyor"
+        kubectl rollout status deployment python-app-deployment --timeout=600s
+        
+    - name: test
+      run: |
+        echo "Proje başariyla ayağa kalkti!"
+        minikube service python-app-service
