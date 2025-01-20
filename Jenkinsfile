@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 // Kodun GitHub’dan çekilmesi
-                git branch: 'master', url: 'https://github.com/barkinatc/pythonapp'
+                git branch: 'main', url: 'https://github.com/barkinatc/pythonapp.git'
             }
         }
 
