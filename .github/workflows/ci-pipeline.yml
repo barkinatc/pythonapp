@@ -31,4 +31,10 @@ jobs:
     - name: nodes
       run: |
         kubectl get pods
+        
+    # 5. Deploy MongoDB
+    - name: nodes
+      run: |
+        kubectl apply -f mongodb-deployment.yaml
+
 
