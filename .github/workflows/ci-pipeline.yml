@@ -34,12 +34,18 @@ jobs:
       run: |
         docker build -t my-python-app .
 
-    # 5. Deploy MongoDB (if necessary, could be omitted depending on your setup)
+    # 5. Set up Kubeconfig
+    - name: Set up kubeconfig
+      run: |
+        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+        chmod 600 $HOME/.kube/config  # Make sure the kubeconfig file has the correct permissions
+
+    # 6. Deploy MongoDB
     - name: Deploy MongoDB
       run: |
         kubectl apply -f mongodb-deployment.yaml
 
-    # 6. Deploy Python App (if necessary, could be omitted depending on your setup)
+    # 7. Deploy Python App
     - name: Deploy Python App
       run: |
         kubectl apply -f python-app-deployment.yaml
