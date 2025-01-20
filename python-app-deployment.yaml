@@ -46,7 +46,7 @@ spec:
     app: python-app
   ports:
     - protocol: TCP
-      port: 80         # Kubernetes içinde kullanılacak port
-      targetPort: 8080 # Pod'larınızda çalışacak uygulamanın portu
-      nodePort: 30080  # Dışarıdan erişim sağlanacak port
+      port: 80         
+      targetPort: 8080 
+      nodePort: 30080  
   type: NodePort       

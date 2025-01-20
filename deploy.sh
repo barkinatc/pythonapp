@@ -1,21 +1,21 @@
 #!/bin/bash
 
-# Minikube'u başlat
+
 echo "Minikube başlatiliyor..."
 minikube start
 
-# MongoDB Deployment dosyasını Kubernetes'e uygula
+
 echo "MongoDB Deployment başlatiliyor..."
 kubectl apply -f mongodb-deployment.yaml
 
-# MongoDB Deployment durumunu kontrol et ve başarılı bir şekilde tamamlanıp tamamlanmadığını bekle
+
 echo "MongoDB deployment'i kontrol ediliyor..."
 kubectl rollout status deployment mongodb-deployment --timeout=1000s
 
-# MongoDB Pod'larının durumunu kontrol et
+
 kubectl get pods -l app=mongodb
 
-# MongoDB Pod'larının "Ready" olduğunu kontrol et
+
 echo "MongoDB Pod'lari hazir."
 sleep 5 
 

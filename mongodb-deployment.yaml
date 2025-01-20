@@ -44,7 +44,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongo-pvc  # PVC'nin adı
+  name: mongo-pvc  
 spec:
   accessModes:
     - ReadWriteOnce  
