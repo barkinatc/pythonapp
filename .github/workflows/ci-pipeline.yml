@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: CI CD Pipeline
 
 on:
   push:
@@ -9,10 +9,29 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+  
+    
     steps:
     # 1. Checkout repository
     - name: Checkout code
       uses: actions/checkout@v2
+
+    # 2. Set up Python
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    # 3. Install dependencies
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # 4. Build Docker image (optional, if you want to build Docker image)
+    - name: Build Docker image
+      run: |
+        docker build -t my-python-app .
 
     # 2. Install Minikube
     - name: Install Minikube
@@ -27,14 +46,19 @@ jobs:
         minikube start
 
 
-    # 5. Deploy MongoDB
-    - name: nodes
-      run: |
-        kubectl get pods
         
     # 5. Deploy MongoDB
-    - name: nodes
+    - name: Deploy MongoDB
       run: |
         kubectl apply -f mongodb-deployment.yaml
+
+     # 9. Wait for MongoDB pod to be in Running state
+    - name: Wait for MongoDB pod to be Running
+      run: |
+        kubectl wait --for=condition=ready pod -l app=mongodb --timeout=300s
+        
+    - name: test
+      run: |
+        kubectl get pods 
 
 
