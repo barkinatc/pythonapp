@@ -17,11 +17,11 @@ kubectl get pods -l app=mongodb
 
 # MongoDB Pod'larının "Ready" olduğunu kontrol et
 echo "MongoDB Pod'lari hazir."
-sleep 5 # 30 saniye bekleyelim, MongoDB'nin tamamen stabilize olması için
+sleep 5 
 
 echo "MongoDB Pod'lari hazir.App deployment hazirlaniyor"
 kubectl apply -f python-app-deployment.yaml
-# App Deployment dosyasını Kubernetes'e uygula
+
 
 kubectl rollout status deployment python-app-deployment --timeout=600s
 
