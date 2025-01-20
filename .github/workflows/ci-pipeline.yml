@@ -59,6 +59,12 @@ jobs:
         
     - name: test
       run: |
-        kubectl get pods 
+        echo "MongoDB deployment'i kontrol ediliyor..."
+        kubectl rollout status deployment mongodb-deployment --timeout=1000s
+        
+    - name: test2
+      run: |
+        echo "MongoDB deployment'i kontrol ediliyor..."
+        kubectl get pods
 
 
