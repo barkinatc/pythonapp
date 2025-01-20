@@ -24,14 +24,8 @@ jobs:
     # 3. Start Minikube
     - name: Start Minikube
       run: |
-        minikube start --driver=docker
+        minikube start
 
-    # 4. Set up kubectl with Minikube's kubeconfig
-    - name: Set up kubectl
-      run: |
-        mkdir -p $HOME/.kube
-        minikube kubectl -- get kubeconfig > $HOME/.kube/config  # Minikube'dan kubeconfig al
-        chmod 600 $HOME/.kube/config  # Kubeconfig dosyasına doğru izinleri ver
 
     # 5. Deploy MongoDB
     - name: Deploy MongoDB
