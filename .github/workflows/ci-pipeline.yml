@@ -66,7 +66,7 @@ jobs:
         
     - name: test
       run: |
-        echo "Uygulama başarıyla ayağa kaldırıldı."
+        echo "Uygulama başariyla ayağa kaldirildi."
         kubectl get pods
     - name: Get Minikube IP
       run: |
