@@ -66,8 +66,8 @@ jobs:
         
     - name: test
       run: |
-        kubectl get pods
         echo "Uygulama başarıyla ayağa kaldırıldı.
+        kubectl get pods
         
 
         
