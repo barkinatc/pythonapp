@@ -26,25 +26,19 @@ jobs:
       run: |
         minikube start --driver=docker
 
-    # 4. Wait for Minikube to be fully ready (Optional, but useful for timing)
-    - name: Wait for Minikube to be ready
-      run: |
-        minikube status
-        sleep 20  # Minikube'un tam olarak başlatılması için bekleyin
-
-    # 5. Set up kubectl with Minikube's kubeconfig
+    # 4. Set up kubectl with Minikube's kubeconfig
     - name: Set up kubectl
       run: |
         mkdir -p $HOME/.kube
         minikube kubectl -- get kubeconfig > $HOME/.kube/config  # Minikube'dan kubeconfig al
         chmod 600 $HOME/.kube/config  # Kubeconfig dosyasına doğru izinleri ver
 
-    # 6. Deploy MongoDB
+    # 5. Deploy MongoDB
     - name: Deploy MongoDB
       run: |
         kubectl apply -f mongodb-deployment.yaml
 
-    # 7. Deploy Python App
+    # 6. Deploy Python App
     - name: Deploy Python App
       run: |
         kubectl apply -f python-app-deployment.yaml
