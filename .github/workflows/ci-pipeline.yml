@@ -78,3 +78,7 @@ jobs:
       run: |
         echo "Proje başariyla ayağa kalkti!"
         minikube service python-app-service
+        
+    - name: test
+      run: |
+        kubectl get pods
