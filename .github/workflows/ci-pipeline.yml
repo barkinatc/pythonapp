@@ -68,6 +68,11 @@ jobs:
       run: |
         echo "Uygulama başarıyla ayağa kaldırıldı."
         kubectl get pods
+    - name: Get Minikube IP
+      run: |
+       MINIKUBE_IP=$(minikube ip)
+       echo "Minikube IP: $MINIKUBE_IP"
+       echo "Uygulama, http://$MINIKUBE_IP:30080 üzerinden erişilebilir."
 
 
 
